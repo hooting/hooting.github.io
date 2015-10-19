@@ -5,7 +5,7 @@ subtitle: ""
 category: Redis
 author: "寞踪"
 header-img: "img/post-bg-2015.jpg"
-tags: [Redis]
+tags: [Redis, Hooting]
 ---
 
 以前只会安装redis，和使用string类型，这个星期，为了使自己更懂一点，所以看了很多关于redis的文章。所以写了这篇浅谈博客，有观点不准确的地方，可以纠正我。
