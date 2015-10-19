@@ -1,0 +1,118 @@
+---
+layout: page
+title: "About"
+description: "free as wind"
+header-img: "img/home-bg.jpg"
+---
+
+<!-- Language Selector -->
+<select onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
+    <option value="0" selected> 中文 Chinese </option>
+    <option value="1"> 英语 English </option>
+</select>
+
+<!-- Chinese Version -->
+<div class="zh">
+    <blockquote>
+        全栈工程师
+    </blockquote>
+
+    <b>个人技能</b>
+
+    <p>1. 精通PHP，熟练掌握MVC设计模式，精通各种PHP框架，自己编写过一套PHP框架，<a href="https://github.com/xpmozong/wavephp" target="_blank">wavephp框架</a></p>
+    
+    <p>2. 精通html,css,js，能根据设计图制作前端页面，精通jquery框架。</p>
+    
+    <p>3. 熟悉Linux系统，CentOs系统最熟悉，熟悉shell，能编译lnmp环境，安装php扩展，安装memcache，redis。</p>
+    
+    <p>4. 精通C语言，开发过小型即时通讯，能传输文字，集成iOS客户端。参考：<a href="https://github.com/xpmozong/Socket" target="_blank">Socket</a></p>
+    
+    <p>5. 精通Python，用Python Django写过一个笑话网站，一个<a href="https://github.com/xpmozong/log-analysis" target="_blank">日志分析</a>，使用pandas分析数据，存储基础数据。</p>
+    
+    <p>6. 精通iOS，开发过<a href="http://24didi.com/" target="_blank">嘀嘀雄兵</a>洗车项目，等。</p>
+
+    <b>个人陈述</b>
+
+    <p>我是一个热爱编程的程序媛，内向开朗。从2010年开始入行互联网，大大小小做过很多项目。除了工作上的，我还喜欢爬山、打羽毛球，追美剧，看武侠。</p>
+
+    <hr>
+    <!-- 简历:
+    <ul class="active-list">
+        <li><a href="{{site.baseUrl}}/attach/1.pdf">许萍的简历</a></li>
+    </ul> -->
+</div>
+
+<!-- English Version -->
+<div class="en">
+    <blockquote>
+        Stack Engineer
+    </blockquote>
+
+    <p>1. Proficient in PHP, familiar with the MVC design pattern, proficient in a variety of PHP framework, I written a PHP framework, <a href="https://github.com/xpmozong/wavephp" target="_blank">wavephp</a></p>
+
+    <p>2. Proficient in HTML, CSS, JS, according to the design of the production front page, Proficient in jQuery framework.</p>
+
+    <p>3. Familiar with Linux system, CentOs system is the most familiar, familiar with shell, can compile LNMP environment, install PHP extension, Memcache, redis.</p>
+
+    <p>4. Proficient in C language, the development of small instant messaging, can transfer text, integrated iOS client. Reference: <a href="https://github.com/xpmozong/Socket" target="_blank">Socket</a></p>
+
+    <p>5. Proficient in Python, written in Django Python a joke site, a <a href="https://github.com/xpmozong/log-analysis" target="_blank">log analysis</a>, using pandas analysis data, the storage of basic data.</p>
+
+    <p>6. Proficient in iOS, development projects <a href="http://24didi.com/" target="_blank">嘀嘀雄兵</a>, etc..</p>
+
+    <b>Personal statement</b>
+
+    <p>I am a love programming program Girl, introverted cheerful. From 2010 began to carry out the Internet, greatly small to do a lot of projects. In addition to the work, I also like playing badminton, climbing, chasing the U.S. drama, martial arts.</p>
+
+    <hr>
+
+</div>
+
+<!-- Handle Language Change -->
+<script type="text/javascript">
+    var $zh = document.querySelector(".zh");
+    var $en = document.querySelector(".en");
+    function onLanChange(index){
+        if(index == 0){
+            $zh.style.display = "block";
+            $en.style.display = "none";
+        }else{
+            $en.style.display = "block";
+            $zh.style.display = "none";
+        }
+    }
+    onLanChange(0);
+</script>
+
+
+
+{% if site.duoshuo_username %}
+<!-- 多说评论框 start -->
+    <div class="comment">
+        <div class="ds-thread"
+        data-thread-key="{{site.duoshuo_username}}/about"
+        data-title="{{page.title}}"
+        data-url="{{site.url}}/about/"></div>
+    </div>
+<!-- 多说评论框 end -->
+
+<!-- Duoshuo hacking -->
+<input id="dsUser" type="hidden" value="{{site.duoshuo_username}}"  />
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    // dynamic User hacking by Hux
+    var _user = document.getElementById('dsUser').value;
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- 多说公共JS代码 end -->
+{% endif %}

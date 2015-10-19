@@ -1,15 +1,12 @@
 ---
 layout: post
 title: "PHP扩展开发 - 第一个扩展"
-description: "PHP扩展开发 - 第一个扩展"
+subtitle: ""
 category: PHP
+author: "寞踪"
+header-img: "img/post-bg-2015.jpg"
 tags: [PHP]
 ---
-{% include JB/setup %}
-
-*	作者：<a href="http://weibo.com/xpmozong" target="blank">寞踪</a>
-*	本文地址：http://xpmozong.github.io/php/2013/12/05/php-extension/
-*	转载请注明出处
 
 学习PHP扩展开发，是PHPer的必学课程。接着上一节课程，<a href="/php/2013/12/05/lnmp/" target="_blank">Linux + Nginx + Mysql + PHP 编译安装</a>。
 
