@@ -1,9 +1,9 @@
 # Site settings
-title: 寞踪的博客
-SEOTitle: 寞踪的博客 | Ellen Blog
+title: Hooting的博客
+SEOTitle: Hooting的博客
 header-img: img/home-bg.jpg
-email: 361131953@qq.com
-description: "寞踪的技术博客，主攻PHP，iOS，Python，Linux，C。"
+email: hootingnju@gmail.com
+description: ""
 keyword: "寞踪的博客"
 url: "http://xpmozong.github.io"
 baseurl: ""
@@ -12,9 +12,9 @@ baseurl: ""
 
 # SNS settings
 RSS: false
-weibo_username:     xpmozong
+#weibo_username:     xpmozong
 #zhihu_username:     huxpro
-github_username:    xpmozong
+github_username:    hooting
 #twitter_username:  huxpro
 #facebook_username:  huxpro
 
@@ -41,8 +41,8 @@ kramdown:
 
 # Duoshuo settings
 # to the old version user, please set your own DuoShuo account in `post.html`, `keynote.html` and `about.html`
-duoshuo_username: xpmozong
-duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+#duoshuo_username: xpmozong
+#duoshuo_share: true                     # set to false if you want to use Comment without Sharing
 # seeing the Share component is depend on Comment so we can NOT use share only.
 
 
@@ -57,7 +57,7 @@ ga_domain: xpmozong.duoshuo.com
 
 
 # Sidebar settings
-sidebar: true                           # whether or not using Sidebar.
+sidebar: false                           # whether or not using Sidebar.
 sidebar-about-description: "一个喜欢折腾的程序媛"
 sidebar-avatar: /img/Ellen.jpg     # use absolute URL.
 
