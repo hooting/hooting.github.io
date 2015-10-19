@@ -3,9 +3,9 @@ title: Hooting的博客
 SEOTitle: Hooting的博客
 header-img: img/home-bg.jpg
 email: hootingnju@gmail.com
-description: ""
-keyword: "寞踪的博客"
-url: "http://xpmozong.github.io"
+description: "Enjoy the little things, for one day you may look back and realise they were the big things (Robert)"
+keyword: "Hooting的博客"
+url: "http://hooting.github.io"
 baseurl: ""
 
 
@@ -41,18 +41,18 @@ kramdown:
 
 # Duoshuo settings
 # to the old version user, please set your own DuoShuo account in `post.html`, `keynote.html` and `about.html`
-#duoshuo_username: xpmozong
-#duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+duoshuo_username: hooting
+duoshuo_share: true                     # set to false if you want to use Comment without Sharing
 # seeing the Share component is depend on Comment so we can NOT use share only.
 
 
 
 # Analytics settings
 # Baidu Analytics `head.html`
-ba_track_id: c710085fbe32373a875b5965e80eda7f
+#ba_track_id: 71cdc713c84d2eafaec53ee07c2b9a96
 # Google Analytics `footer.html`
-ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
-ga_domain: xpmozong.duoshuo.com
+#ga_track_id: 'UA-49627206-1'            # Format: UA-xxxxxx-xx
+#ga_domain: hooting.duoshuo.com
 
 
 
@@ -64,10 +64,10 @@ sidebar-avatar: /img/Ellen.jpg     # use absolute URL.
 
 
 # Featured Tags
-featured-tags: true                     # whether or not using Feature-Tags
+featured-tags: false                     # whether or not using Feature-Tags
 featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
 
 
 
 # Friends
-friends: []
+#friends: []
