@@ -17,7 +17,7 @@ tags:
 * `BeanNameAutoProxyCreator`
 * `DefaultAdvisorAutoProxyCreator`
 
-## `BeanNameAutoProxyCreator`
+## BeanNameAutoProxyCreator
 `BeanNameAutoProxyCreator` 通过属性`List<String> beanNames`保存需要生成代理的bean名称。`BeanNameAutoProxyCreator`的实现思想比较简单，通过实现接口`BeanPostProcessor`。
 
 **Code Example**
@@ -216,6 +216,7 @@ public class AnimalAdvice implements MethodInterceptor {
 ```
 
 写一个测试类`AutoProxyTest`
+
 ```
 package org.springaop.chapter.three.autoproxy;
 
@@ -250,7 +251,7 @@ public class AutoProxyTest {
 > public java.lang.Boolean org.springaop.chapter.three.autoproxy.domain.Seabird.hasBeak()
 > return value:true
 
-## `DefaultAdvisorAutoProxyCreator`
+## DefaultAdvisorAutoProxyCreator
 从上面的配置文件看出，利用`BeanNameAutoProxyCreator`减少了大量的配置信息，使开发人员能够更加专注于业务逻辑的实现。利用`DefaultAdvisorAutoProxyCreator`,
 可以更方便地配置代理。
 
