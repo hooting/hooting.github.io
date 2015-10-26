@@ -30,6 +30,7 @@ tags:
 * aopalliance
 
 定义一个接口：`Animal`
+
 ```
 package org.springaop.chapter.three.autoproxy.domain;
 
@@ -45,6 +46,7 @@ public interface Animal {
 ```
 
 接口`Bird`继承接口`Animal`
+
 ```
 package org.springaop.chapter.three.autoproxy.domain;
 
@@ -54,11 +56,10 @@ public interface Bird extends Animal {
 	public Boolean hasFeathers();
 
 }
-
-
 ```
 
 定义类`Cat`,它实现了`Animal`的方法
+
 ```
 package org.springaop.chapter.three.autoproxy.domain;
 
@@ -100,6 +101,7 @@ public class Cat implements Animal {
 ```
 
 定义`SeaBird`,实现接口`Animal`和`Bird`:
+
 ```
 package org.springaop.chapter.three.autoproxy.domain;
 
@@ -165,6 +167,7 @@ public class AnimalAdvice implements MethodInterceptor {
 ```
 
 定义配置文件，添加Bean的说明
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -238,6 +241,7 @@ public class AutoProxyTest {
 ```
 
 输出结果如下
+
 > Target Class:org.springaop.chapter.three.autoproxy.domain.Cat@3567135c
 > public java.lang.Boolean org.springaop.chapter.three.autoproxy.domain.Cat.hasHotBlood()
 > return value:true
@@ -251,6 +255,7 @@ public class AutoProxyTest {
 可以更方便地配置代理。
 
 使用前面的例子，我们修改`applicationContext.xml`文件的内容，去掉`autoProxyCreator`的定义，添加`DefaultAdvisorAutoProxyCreator`.完整的xml文件如下：
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
