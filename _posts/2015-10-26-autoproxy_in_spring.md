@@ -6,8 +6,10 @@ date:       2015-10-26 12:00:00
 author:     "Hooting"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - jvm
+    - spring
     - java
+    - aop
+    - autoproxy
 ---
 
 ## Autoproxy with classic Spring
