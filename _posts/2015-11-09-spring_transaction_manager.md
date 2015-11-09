@@ -6,8 +6,9 @@ date:       2015-11-09 12:00:00
 author:     "Hooting"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - python
-    - re
+    - spring 
+    - transaction
+    - java
 ---
 
 ## 声明式事务处理的基本过程
