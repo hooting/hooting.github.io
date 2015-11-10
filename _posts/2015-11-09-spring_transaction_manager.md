@@ -182,7 +182,7 @@ protected Object invokeWithinTransaction(Method method, Class<?> targetClass, fi
 ```
 
 
-##事务的创建
+## 事务的创建
 我们注意到TransactionInterceptor拦截器的`invoke`回调中使用的`createTransactionIfNecessary
 `方法，它是事务创建的起点。它的实现代码如下。在`createTransactionIfNecessary
 `方法调用中，可以看到两个重要的数据对象TransactionStatus和TransactionInfo的调用，这两个对象持有的
