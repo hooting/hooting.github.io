@@ -25,7 +25,7 @@ tags:
 注入进来的PlatformTransactionManager和事务处理属性TransactionAttribute。
 这些工作是由IoC的TransactionProxyFactoryBean完成的。它的实现如下：
 
-```
+{% highlight Java linenos %}
 public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 		implements BeanFactoryAware {
 	/**
@@ -62,17 +62,17 @@ public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBe
 	}
 
 }
-```
+{% endhighlight %}
 
 有上面的代码可以知道，TransactionInterceptor在方法`createMainInterceptor`中被配置为Advisor通知器的一部分。
 而`createMainInterceptor`方法在IoC容器完成Bean的注入依赖时，通过`initiaizeBean`方法被调用，调用过程如下图:
-![](https://raw.githubusercontent.com/hooting/hooting.github.io/master/img/post/createMainInterceptor.png)
+![](img/post/createMainInterceptor.png)
 
 这个`afterPropertiesSet`方法的功能实现如下所示。从代码中可以看到，在建立TransactionProxyFactoryBean的事务
 处理拦截器的时候，首先需要对ProxyFactoryBean的目标Bean设置进行检查，如果这个目标Bean的配置是正确的，
 就会通过创建一个ProxyFactory对象，从而实现AOP的使用。
 
-```
+{% highlight java linenos %}
 public void afterPropertiesSet() {
     if (this.target == null) {
     	throw new IllegalArgumentException("Property 'target' is required");
@@ -117,14 +117,14 @@ public void afterPropertiesSet() {
     
     this.proxy = proxyFactory.getProxy(this.proxyClassLoader);
 }
-```
+{% endhighlight %}
 
 ## 事务处理拦截器的实现
 对事务方法的拦截是通过`invoke`方法，它使Proxy代理对象的回调方法。在事务处理拦截器TransactionInterceptor中，
 `invoke`方法的实现代码如下。可以看到，首先获得调用方法的事务处理配置，之后取得配置的PlatformTransactionManager
 ,由这个事务处理器来实现事务的创建、提交、回滚操作。
 
-```
+{% highlight java linenos %}
 public Object invoke(final MethodInvocation invocation) throws Throwable {
 	// Work out the target class: may be {@code null}.
 	// The TransactionAttributeSource should be passed the target class
@@ -179,7 +179,7 @@ protected Object invokeWithinTransaction(Method method, Class<?> targetClass, fi
 		.....
 	}
 }
-```
+{% endhighlight %}
 
 
 ## 事务的创建
@@ -188,7 +188,7 @@ protected Object invokeWithinTransaction(Method method, Class<?> targetClass, fi
 `方法调用中，可以看到两个重要的数据对象TransactionStatus和TransactionInfo的调用，这两个对象持有的
 数据是事务处理器对事务进行处理的主要依据，对他们的使用贯穿着整个事务处理的过程。
 
-```
+{% highlight java linenos %}
 protected TransactionInfo createTransactionIfNecessary(
 		PlatformTransactionManager tm, TransactionAttribute txAttr, final String joinpointIdentification) {
 
@@ -251,7 +251,7 @@ protected TransactionInfo prepareTransactionInfo(PlatformTransactionManager tm,
 	txInfo.bindToThread();
 	return txInfo;
 }
-```
+{% endhighlight %}
 
 在以上的处理过程完成以后，可以看到具体的事务创建就交给事务处理器来完成了。下面看事务处理器中去了解
 一下更底层的事务创建过程，它被上述代码的`tm.getTransaction(txAttr)`调用出发，生成一个TransactionStatus对象，
@@ -259,7 +259,7 @@ protected TransactionInfo prepareTransactionInfo(PlatformTransactionManager tm,
 AbstractPlatformTransactionManager会根据事务属性配置和当前线程绑定的事务信息，对事务是否需要创建、怎样创建
 进行一些通用的处理，然后把事务创建的底层工作交给具体的事务处理器完成(如DataSourceTransactionManagera)。
 
-```
+{% highlight java linenos %}
 public final TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
 	/**
 	 * 这个doGetTransaction是抽象函数，Transaction对象的取得由具体的事务处理器实现。
@@ -439,14 +439,14 @@ private TransactionStatus handleExistingTransaction(
 	boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
 	return prepareTransactionStatus(definition, transaction, false, newSynchronization, debugEnabled, null);
 }
-```
+{% endhighlight %}
 
 ## 具体事务处理器的实现
 下面，以DataSourceTransactionManager为例，简单介绍一下在具体的事务处理器中，是如何实现事务的创建、提交、
 回滚这些底层的事务处理操作。在实现过程中，需要把数据库的Connection和当前的线程进行绑定。对于事务的提交
 和回滚，都是直接调用Connection的提交和回滚方法来完成。
 
-```
+{% highlight java linenos %}
 public class DataSourceTransactionManager extends AbstractPlatformTransactionManager
 		implements ResourceTransactionManager, InitializingBean {
 
@@ -501,5 +501,4 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	}
 
 }
-
-```
+{% endhighlight %}
