@@ -124,7 +124,7 @@ public void afterPropertiesSet() {
 `invoke`方法的实现代码如下。可以看到，首先获得调用方法的事务处理配置，之后取得配置的PlatformTransactionManager
 ,由这个事务处理器来实现事务的创建、提交、回滚操作。
 
-```
+```java
 public Object invoke(final MethodInvocation invocation) throws Throwable {
 	// Work out the target class: may be {@code null}.
 	// The TransactionAttributeSource should be passed the target class
