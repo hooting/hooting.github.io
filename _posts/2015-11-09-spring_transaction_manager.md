@@ -25,7 +25,7 @@ tags:
 注入进来的PlatformTransactionManager和事务处理属性TransactionAttribute。
 这些工作是由IoC的TransactionProxyFactoryBean完成的。它的实现如下：
 
-{% highlight Java linenos %}
+{% highlight Java%}
 public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 		implements BeanFactoryAware {
 	/**
@@ -72,7 +72,7 @@ public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBe
 处理拦截器的时候，首先需要对ProxyFactoryBean的目标Bean设置进行检查，如果这个目标Bean的配置是正确的，
 就会通过创建一个ProxyFactory对象，从而实现AOP的使用。
 
-{% highlight java linenos %}
+```
 public void afterPropertiesSet() {
     if (this.target == null) {
     	throw new IllegalArgumentException("Property 'target' is required");
@@ -117,7 +117,7 @@ public void afterPropertiesSet() {
     
     this.proxy = proxyFactory.getProxy(this.proxyClassLoader);
 }
-{% endhighlight %}
+```
 
 ## 事务处理拦截器的实现
 对事务方法的拦截是通过`invoke`方法，它使Proxy代理对象的回调方法。在事务处理拦截器TransactionInterceptor中，
