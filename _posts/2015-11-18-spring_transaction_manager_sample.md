@@ -89,7 +89,7 @@ public class Encoder {
 
 ### Segmenter的实现代码如下所示：
 
-```Java
+```java
 package tvdcr.sample.component;
 
 public class Segmenter {
@@ -113,7 +113,7 @@ public class Segmenter {
 ### 在XML中定义事务
 使用tx命名空间，会涉及将其添加到Spring XML配置文件中，同时应该将AOP命名空间包括在内。
 
-```XML
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
@@ -129,7 +129,7 @@ public class Segmenter {
 
 这个tx命名空间提供了一些新的XML配置元素，其中最重要的是`<tx:advice>`,通过它可以定义事务性策略(传播性、隔离级别、回滚规则等)。以下的XML片段显示了`<tx:advice>`是如何声明事务性策略的。
 
-```XML
+```xml
 <tx:advice id="txAdvice" transaction-manager="txManager">
 	<!-- the transactional semantics... -->
 	<tx:attributes>
@@ -147,7 +147,7 @@ public class Segmenter {
 
 > **Note:** 为了简便起见，本文并没有用具体的`transaction-manager`,如`DataSourceTransactionManager`和`HibernateTransactionManager`，而是用Spring自带的用于测试的`transaction-manager`:`CallCountingTransactionManager`。它的实现如下：
 
-```Java
+```java
 public class CallCountingTransactionManager extends AbstractPlatformTransactionManager {
 
 	public TransactionDefinition lastDefinition;
@@ -198,7 +198,7 @@ public class CallCountingTransactionManager extends AbstractPlatformTransactionM
 
 `<tx:advice>`只是定义了AOP通知，用于把事务边界通知给方法。但是并没有声明哪些`Bean`应该被通知——我们需要一个切点来做这件事，即定义一个通知器(advisor)。以下的XML定义了一个通知器，它使用`txAdvice`通知所有`tvdcr.sample.component`包下的`Bean`。
 
-```XML
+```xml
 <aop:config>
 	<aop:pointcut id="sampleInterceptor"
 		expression="execution(* tvdcr.sample.component.*.*(..))" />
@@ -209,13 +209,13 @@ public class CallCountingTransactionManager extends AbstractPlatformTransactionM
 ### 定义注解驱动的事务
 除了`<tx:advice>`元素，`tx`命名空间还提供了`<tx:annotation-driven>`元素。使用`<tx:annotation-driven>`时，只需要一行XML,并通过`transaction-manager`属性指定特定的事务管理器，如下：
 
-```XML
+```xml
 <tx:annotation-driven transaction-manager='txManager'/>
 ```
 
 `<tx:annotation-driven>`元素告诉Spring检测上文中所有的`Bean`边查找使用`@Transactional`注解的`Bean`,而不管这个注解是用在类级别上还是方法级别上。对于每一个使用`@Transactional`注解的`Bean`,`<tx:annotation-driven>`会自动为它添加事务通知。通知的事务属性是通过`@Transactional`注解的参数来定义的。下述代码展示了添加`@Transactional`注解后`Segmenter`的实现：
 
-```Java
+```java
 package tvdcr.sample.component;
 
 import org.springframework.transaction.annotation.Propagation;
