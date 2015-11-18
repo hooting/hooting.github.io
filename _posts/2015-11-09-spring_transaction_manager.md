@@ -26,7 +26,6 @@ tags:
 这些工作是由IoC的TransactionProxyFactoryBean完成的。它的实现如下：
 
 ```java
-
 public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBean
 		implements BeanFactoryAware {
 	/**
@@ -74,7 +73,6 @@ public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBe
 就会通过创建一个ProxyFactory对象，从而实现AOP的使用。
 
 ```java
-
 public void afterPropertiesSet() {
     if (this.target == null) {
     	throw new IllegalArgumentException("Property 'target' is required");
@@ -127,7 +125,6 @@ public void afterPropertiesSet() {
 ,由这个事务处理器来实现事务的创建、提交、回滚操作。
 
 ```java
-
 public Object invoke(final MethodInvocation invocation) throws Throwable {
 	// Work out the target class: may be {@code null}.
 	// The TransactionAttributeSource should be passed the target class
@@ -192,7 +189,6 @@ protected Object invokeWithinTransaction(Method method, Class<?> targetClass, fi
 数据是事务处理器对事务进行处理的主要依据，对他们的使用贯穿着整个事务处理的过程。
 
 ```java
-
 protected TransactionInfo createTransactionIfNecessary(
 		PlatformTransactionManager tm, TransactionAttribute txAttr, final String joinpointIdentification) {
 
@@ -264,7 +260,6 @@ AbstractPlatformTransactionManager会根据事务属性配置和当前线程绑�
 进行一些通用的处理，然后把事务创建的底层工作交给具体的事务处理器完成(如DataSourceTransactionManagera)。
 
 ```java
-
 public final TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
 	/**
 	 * 这个doGetTransaction是抽象函数，Transaction对象的取得由具体的事务处理器实现。
@@ -452,7 +447,6 @@ private TransactionStatus handleExistingTransaction(
 和回滚，都是直接调用Connection的提交和回滚方法来完成。
 
 ```java
-
 public class DataSourceTransactionManager extends AbstractPlatformTransactionManager
 		implements ResourceTransactionManager, InitializingBean {
 
