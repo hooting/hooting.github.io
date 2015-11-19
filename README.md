@@ -1,5 +1,9 @@
 #Hux Blog
 
+#added by yy
+#just test
+#love you
+
 ###[View Live Hux Blog &rarr;](http://huxpro.github.io)
 
 ![](http://huangxuan.me/img/blog-desktop.jpg)
