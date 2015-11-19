@@ -4,6 +4,8 @@
 #just test
 #love you
 
+#haha, i am a member now
+
 ###[View Live Hux Blog &rarr;](http://huxpro.github.io)
 
 ![](http://huangxuan.me/img/blog-desktop.jpg)
