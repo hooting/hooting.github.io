@@ -1,0 +1,123 @@
+---
+layout:     post
+title:      "Python 序列化(pickle)操作学习笔记"
+subtitle:   ""
+date:       2016-01-30 12:00:00
+author:     "Hooting"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - python
+    - pickle
+---
+
+## 前言
+在上一文中讲到文件的读写，在读写文件时，往往涉及的数据并不是简单的字符串，而是列表、字典，或者是用户自定义的类，这就需要我们在写文件时，对数据进行序列化，在读文件时对数据进行反序列化。序列化的应用场景还包括: 在多用户或者分布式系统中数据的网络传输；将对象保存至数据库；将对象转成字符串使之能作为字典的key(session和cache的存储)。
+python 有很多模块支持序列化，如`pickle`, `json`, `marshal`, `shelve`。 本文重点介绍`pickle`。
+
+### `open`
+文件操作，第一步当然是打开文件，用内建函数`open`打开，他的定义如下：
+
+> open(name[, mode[, buffering]])
+
+他的返回值是一个`file`的对象，如果文件不存在，则抛出`IOError`异常。第一个参数是文件名；第二个参数定义打开方式，如'r'、'w'、'a'，默认值为'r'；第三个参数定义期望的缓存大小，0表示不缓存，1表示按行缓存，其他的正数表示以字节为单位的缓存大小，如果是负数则采用默认值，默认值为按行缓存。下表罗列了文件打开方式
+
+方式 | 描述
+r   | 读内容,文件指针在文件头
+w   | 写内容，文件指针在文件头。如果文件已存在，则覆盖之前的内容，如果文件不存在，则创建一个新的文件
+a   | 附加内容，文件指针在文件尾。如果文件不存在，则创建一个新的文件
+
+如果要读写二进制文件，则在相应的方式下添加`b`; 如果既要读又要写，则添加`+`，如`r+`、`w+`。
+
+`open`函数的一个示例如下：
+
+```python
+>>> f = open('workfile', 'w')
+>>> print f
+<open file 'workfile', mode 'w' at 80a0960>
+```
+
+### `file`对象
+[file](https://docs.python.org/2/library/stdtypes.html#file-objects)对象是由内建函数`open`创建，当然也可以由其他的内建函数如[os.popen()](https://docs.python.org/2/library/os.html#os.popen)、
+[os.fdopen()](https://docs.python.org/2/library/os.html#os.fdopen)。当需要创建临时文件时，可以通过模板[tempfile](https://docs.python.org/2/library/tempfile.html#module-tempfile)实现，而不需要自己手动去创建并删除。当需要对文件进行一些更高级的操作，如删除、移动、拷贝文件时，可以通过模板[shutil](https://docs.python.org/2/library/shutil.html#module-shutil)很方便的实现。
+
+`file`对象有很多方法，包括常用的`read`、`write`、`close`，还有文件指针的操作，如`tell`、`seek`。由于本文主要介绍文件的读写，所以下文重点关注`read`、`write`。
+
+### `read`
+读文件最常用的方法是`read`,它的定义如下：
+
+> file.read([size])
+
+`read`读取`size`个字节的数据，或者是碰到了`EOF`。当参数`size` 忽略或是为负数时，则读取整个文件。
+
+如果要按行读取，则有两个兄弟方法，分别是：`readline`和`readlines`。`readline`读取一行，需要注意的是返回的一行包括换行符；`readlines`是对整个文件按行读取，返回一个按行存放的`list`,它的内部实现是：不断调用`readline`,直到文件指针遇到`EOF`。下面是一个按行读取文件的例子：
+
+```python
+try:
+    f = open('myFile', 'r')
+    data = [line.strip() for line in f.readlines()] # 用strip去掉每行的换行符
+except IOErroe:
+    pass
+finally:
+    f.close()
+```
+
+### `write`
+介绍完`read`,`write`的介绍就变得很简单，文件的写主要有两个函数，`write`和`writelines`。它们的定义如下：
+
+> file.write(str)
+> file.writelines(sequence)
+
+这两个函数都没有返回值。因为缓存的缘故，当向文件写入内容时，并不会立即呈现，需要调用 `flush`或者是`close`。值得注意的是，`writelines`并不会为`sequence`的每个值添加换行符。下面是一个`writelines`的使用示例：
+
+```python
+a = ["hello ", "world"]
+try:
+    f = open("a.txt","w")
+    f.writelines(a)
+except IOError:
+    print "file not found"
+finally:
+    f.close()
+
+'''
+a.txt内容为：
+hello world 
+而不是：
+hello
+world
+'''
+```
+
+### 编码
+`read`, `write`读或写时都是`string`类型，或句话说，它们的编码是ASCII，当你调用`write`时，若写入中文，则会报错：`UnicodeEncodeError`,解决这个问题，需要在写文件时进行编码，在读文件时进行解码
+
+```
+content = u"你好"
+f.write(content.encode("utf-8"))
+print f.read().decode("utf-8")
+```
+
+### 示例
+文件操作在应用程序中出现的频率很高，而它在操作过程很容易抛出`IOError`,比如文件不存在，或者是用户对一个打开方式为读的文件进行了写操作,而且在文件操作结束后，程序员往往忘记关闭文件对象，造成资源的泄漏，所以在这里给出我的一个模板，以备往后用到时参考。这里用到了python的关键字[with](https://docs.python.org/2/reference/compound_stmts.html#with), 省去了手动关闭的麻烦。
+
+#### 示例一、写
+
+```python
+contents = "hello world"
+try:
+    with open("a.txt", "w") as f:
+        f.write(contents)
+except IOError:
+    print "file operation error"
+```
+
+#### 示例二、读
+
+```python
+contents = []
+try:
+    with open("a.txt", "r") as f:
+        contents = f.readlines()
+except IOError:
+    print "file operation error"
+```
