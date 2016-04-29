@@ -25,10 +25,13 @@ tags:
 > pip uninstall package-name
 
 ## 检查安装包的版本
+
 ### 通过pip命令
+
 > pip show YOUR_PACKAGE_NAME | grep Version
 
 ### 通过python代码
+
 > print pymysql.VERSION
 
 ## python 连接MySQL数据库
