@@ -17,34 +17,27 @@ tags:
  > python get-pip.py 
 
 ## pip 的使用
+- 安装包：
+> pip install package-name
+- 升级包:
+> pip install package-name --upgrade
+- 删除包:
+> pip uninstall package-name
 
- - 安装包：
- > pip install package-name
- - 升级包:
- > pip install package-name --upgrade
- - 删除包:
- > pip uninstall package-name
+## 检查安装包的版本
+### 通过pip命令
+> pip show YOUR_PACKAGE_NAME | grep Version
 
- ## 检查安装包的版本
-
- ### 通过pip命令
-
- > pip show YOUR_PACKAGE_NAME | grep Version
- 
- ### 通过python代码
-
- > print pymysql.VERSION
+### 通过python代码
+> print pymysql.VERSION
 
 ## python 连接MySQL数据库
-
 可用两个包，分别是[pymysql](https://github.com/PyMySQL/PyMySQL)或者MySQLdb连接数据库。
 
 ### pymysql安装
-
 > pip install PyMySQL
 
 ### pymysql示例
-
 ```python
 import pymysql
 
