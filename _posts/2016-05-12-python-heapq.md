@@ -1,0 +1,81 @@
+---
+layout:     post
+title:      "Python heapq笔记"
+subtitle:   ""
+date:       2016-05-12 12:00:00
+author:     "Hooting"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - python
+    - heapq
+---
+
+
+----------
+
+简介
+--
+[heapq](https://docs.python.org/2/library/heapq.html) 提供了堆队列算法。默认的，它的实现是最小堆。下面介绍几个主要的方法。
+
+ - heapq.heapify(x) 把列表x转为堆。操作时间复杂度线性
+ - heapq.heappush(heap, item) 向堆中插入item
+ - heapq.heappop(heap) 从堆中获得最小值，并把它从堆中删除。如果想要获得最小值，而不想从堆中删除，可通过heap[0]访问
+ - heapq.nlargest(n, iterable[, key]) 从堆中，获得最大的n个数
+ - heapq.nsmallest(n, iterable[, key]) 从堆中，获得最小的n个数
+
+例子
+--
+堆排序的实现
+
+```python
+>>> def heapsort(iterable):
+...     h = []
+...     for value in iterable:
+...         heappush(h, value)
+...     return [heappop(h) for i in range(len(h))]
+...
+>>> heapsort([1, 3, 5, 7, 9, 2, 4, 6, 8, 0])
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
+
+当堆中的元素是自定义的类型时，需要实现 `__cmp__`方法。
+
+```python
+>>> import heapq
+>>> class MyObject(object):
+...     def __init__(self, val):
+...         self.val = val
+...     def __cmp__(self, other):
+...         return cmp(self.val, other.val)
+>>> q = []
+>>> objectA = MyObject(5)
+>>> objectB = MyObject(4)
+>>> objectC = MyObject(6)
+>>> heapq.heappush(q, objectA)
+>>> heapq.heappush(q, objectB)
+>>> heapq.heappush(q, objectC)
+>>> obj = heapq.heappop(q)
+>>> print obj.val
+4
+```
+
+需要注意的是，如果在一个对象插入堆后，改变了值，则应用`heapify`重新构建堆。以上述例子说明：
+
+```python
+>>> q = []
+>>> objectA = MyObject(5)
+>>> objectB = MyObject(4)
+>>> objectC = MyObject(6)
+>>> heapq.heappush(q, objectA)
+>>> heapq.heappush(q, objectB)
+>>> heapq.heappush(q, objectC)
+>>> objectC.val = 3
+>>> print q[0]
+4
+>>> heapq.heapify(q)
+>>> print q[0]
+3
+```
+
+
+因为`heapq`实现的是最小堆，所以，如果需要最大堆，则把`__cmp__`的返回值取反即可。
