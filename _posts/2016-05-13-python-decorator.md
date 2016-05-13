@@ -1,3 +1,4 @@
+
 ---
 layout:     post
 title:      "Python decorator 实例"
