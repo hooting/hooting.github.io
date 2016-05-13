@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      "Python decorator 实例"
@@ -10,8 +9,6 @@ tags:
     - python
     - decorator
 ---
-
-
 
 python decorator使用的例子：获得方法执行的时间
 
