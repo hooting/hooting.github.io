@@ -10,6 +10,8 @@ tags:
     - decorator
 ---
 
+
+
 python decorator使用的例子：获得方法执行的时间
 
 ```python
